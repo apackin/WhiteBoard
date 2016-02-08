@@ -4,9 +4,9 @@ socket.on('connect', function (storedArt) {
 
    console.log('I have made a persistent two-way connection to the server!');
 
-    storedArt.forEach(function(arr){
-    	whiteboard.draw(arr[0], arr[1], arr[2]);
-    });
+    // storedArt.forEach(function(arr){
+    // 	whiteboard.draw(arr[0], arr[1], arr[2]);
+    // });
 });
 
 whiteboard.on("draw", function(start, end, strokeColor) {
