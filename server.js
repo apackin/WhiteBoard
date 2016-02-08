@@ -10,17 +10,30 @@ server.on('request', app);
 
 var io = socketio(server);
 
+var storedArt = [];
+
+
+
 io.on('connection', function (socket) {
     /* This function receives the newly connected socket.
        This function will be called for EACH browser that connects to our server. */
     console.log('A new client has connected!');
+    storedArt.forEach(function(thing){
+    	socket.broadcast.emit(thing);
+    });
+    // for each thing in the array send someoneDrew.
 
 	socket.on('disconnect', function() {
 		console.log("We have lost client: ", socket.id);
 	});
 
-});
+	socket.on('drawing', function(start, end, strokeColor){
+		storedArt.push('someoneDrew', start, end, strokeColor);
+		socket.broadcast.emit('someoneDrew', start, end, strokeColor);
+		/// push to the array above
+	});
 
+});
 
 
 server.listen(1337, function () {
